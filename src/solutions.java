@@ -16,6 +16,57 @@ public class solutions {
 		return null;
 	}
 	
+	//LeetCode Question #2
+	/**
+	 * Definition for singly-linked list.
+	 * public class ListNode {
+	 *     int val;
+	 *     ListNode next;
+	 *     ListNode() {}
+	 *     ListNode(int val) { this.val = val; }
+	 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+	 * }
+	 */
+	class Solution {
+	    
+	    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+	        return addTwo(l1,l2,0);
+	    }
+	    
+	    private ListNode addTwo(ListNode l1, ListNode l2, int remainder){
+	        int temp = 0;
+	        if (l1 != null && l2 != null){
+	            temp = l1.val + l2.val + remainder;
+	            remainder = 0;
+	            if (temp >= 10){
+	                temp -= 10;
+	                remainder = 1;
+	            }
+	            return new ListNode(temp, addTwo(l1.next,l2.next,remainder));  
+	        }else if (l1 != null && l2 == null){
+	            temp = l1.val + remainder;
+	            remainder = 0;
+	            if (temp >= 10){
+	                temp -= 10;
+	                remainder = 1;
+	            }
+	            return new ListNode(temp, addTwo(l1.next,null,remainder));   
+	        }else if (l1 == null && l2 != null){
+	            temp = l2.val + remainder;
+	            remainder = 0;
+	            if (temp >= 10){
+	                temp -= 10;
+	                remainder = 1;
+	            }
+	            return new ListNode(temp, addTwo(l2.next,null,remainder));
+	        }else if (l1 == null && l2 == null && remainder == 1){
+	            return new ListNode(1, addTwo(null,null,0));
+	        }
+	        
+	        return null;    
+	    }
+	    
+	}
 	//LeetCode Question #9
 	public static boolean isPalindrome(int x) {
 		if (x < 0) {
